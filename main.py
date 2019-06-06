@@ -18,7 +18,7 @@ def calculate(usb_size, memes):
             else:
                 sub_solutions[i][w] = sub_solutions[i-1][w]
 
-    # retriving the max value of memes that can fit into the usb_drive
+    # retriving the max worth of memes that can fit into the usb_drive
     max_value = sub_solutions[len(memes)][usb_size]
 
     # generating the set of memes to upload to usb_drive
