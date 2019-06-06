@@ -36,14 +36,12 @@ def calculate(usb_size, memes):
         else:
             # adding the name of meme to output_memes
             output_memes.add(memes[i-1][0])
-            # decrementing the result by price of meme that was added to output_memes
+            # decrementing the result by the price of meme that was added to output_memes
             result -= memes[i-1][2]
-            # decrementing the capacity by size of meme that was added to output_memes
+            # decrementing the capacity by the size of meme that was added to output_memes
             capacity -= memes[i-1][1]
 
-    # generating output list
-    output = list()
-    output.append(max_value)
-    output.append(output_memes)
+    # generating output tuple
+    output = (max_value, output_memes)
     # returning output
     return output
