@@ -27,7 +27,7 @@ def calculate(usb_size, memes):
     result = max_value
     capacity = usb_size
     for i in range(len(memes), 0, -1):
-        # stop of loop
+        # there is no memes that their size is less or equal 0, so break the loop
         if result <= 0:
             break
         # the result is included only when it comes from "memes[i-1][2]+sub_solutions[i-1][w-memes[i-1][1]]"
