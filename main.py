@@ -1,31 +1,49 @@
 
-
 def calculate(usb_size, memes):
     # conversion to MiB
     usb_size *= 1024
     # array usb_size x len(memes)
-    a = [[0]*usb_size for i in range(len(memes))]
+    sub_solutions = [[0 for w in range(usb_size + 1)]
+                     for i in range(len(memes) + 1)]
     # declaration of set that will have set of memes to load into usb-drive
-    set_of_memes = set()
-
-    # checking first i elements
-    for i in range(len(memes)):
-        for j in range(usb_size):
-            # checking if i-th element can be packed into the usb-drive of size j
-            if(memes[i][1] > j):
-                a[i][j] = a[i-1][j]
-                set_of_memes.add(memes[i][0])
+    # checking first i-th elements
+    for i in range(len(memes)+1):
+        for w in range(usb_size+1):
+            if i == 0 or w == 0:
+                sub_solutions[i][w] = 0
+            # checking if i-th element fits into usb_drive
+            elif memes[i-1][1] <= w:
+                # choosing the best way to fill the drive of size w
+                sub_solutions[i][w] = max(
+                    memes[i-1][2]+sub_solutions[i-1][w-memes[i-1][1]], sub_solutions[i-1][w])
             else:
-                a[i][j] = max(a[i-1][j], a[i-1][j-memes[i][1]]+memes[i][2])
-    output = (a[len(memes)-1][usb_size-1], set_of_memes)
+                sub_solutions[i][w] = sub_solutions[i-1][w]
+
+    # retriving the max value of memes that can fit into the usb_drive
+    max_value = sub_solutions[len(memes)][usb_size]
+
+    # generating the set of memes to upload to usb_drive
+    output_memes = set()
+    result = max_value
+    capacity = usb_size
+    for i in range(len(memes), 0, -1):
+        # stop of loop
+        if result <= 0:
+            break
+        # the result is included only when it comes from "memes[i-1][2]+sub_solutions[i-1][w-memes[i-1][1]]"
+        if result == sub_solutions[i-1][w]:
+            continue
+        else:
+            # adding the name of meme to output_memes
+            output_memes.add(memes[i-1][0])
+            # decrementing the result by price of meme that was added to output_memes
+            result -= memes[i-1][2]
+            # decrementing the capacity by size of meme that was added to output_memes
+            capacity -= memes[i-1][1]
+
+    # generating output list
+    output = list()
+    output.append(max_value)
+    output.append(output_memes)
+    # returning output
     return output
-
-
-#name, size, price
-memes = [
-    ('rollsafe.jpg', 205, 6),
-    ('sad_pepe_compilation.gif', 410, 10),
-    ('yodeling_kid.avi', 605, 12)
-]
-usb_size = 20
-print(calculate(usb_size, memes))
