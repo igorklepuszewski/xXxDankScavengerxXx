@@ -41,7 +41,7 @@ def calculate(usb_size, memes):
             # decrementing the capacity by the size of meme that was added to output_memes
             capacity -= memes[i-1][1]
 
-    # generating output tuple
+    # generating output list
     output = (max_value, output_memes)
     # returning output
     return output
