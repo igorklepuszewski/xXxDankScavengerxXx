@@ -5,7 +5,6 @@ def calculate(usb_size, memes):
     # array usb_size x len(memes)
     sub_solutions = [[0 for w in range(usb_size + 1)]
                      for i in range(len(memes) + 1)]
-    # declaration of set that will have set of memes to load into usb-drive
     # checking first i-th elements
     for i in range(len(memes)+1):
         for w in range(usb_size+1):
