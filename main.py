@@ -29,8 +29,8 @@ def calculate(usb_size, memes):
         # there is no memes that their size is less or equal 0, so break the loop
         if result <= 0:
             break
-        # the result is included only when it comes from "memes[i-1][2]+sub_solutions[i-1][w-memes[i-1][1]]"
-        if result == sub_solutions[i-1][w]:
+        # the result is included only when it comes from "memes[i-1][2]+sub_solutions[i-1][capacity-memes[i-1][1]]"
+        if result == sub_solutions[i-1][capacity]:
             continue
         else:
             # adding the name of meme to output_memes
